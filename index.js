@@ -2,7 +2,8 @@ const {GraphQLServer} = require('graphql-yoga');
 
 let links = [{
     id:'link-0',
-    url:'www.graphql.com'
+    url:'www.graphql.com',
+    description:'This is the official website'
     
 }]
 
@@ -23,6 +24,17 @@ const resolvers = {
             }
             links.push(link)
             return link
+        },
+        update: (parent,args) => {
+            const link = links.filter((link)=>{
+                return link.id === args.id
+            })
+            link.id = args.id
+            link.url = args.url
+            link.description = args.description
+            links.push(link)
+            return link
+
         }
     }
 }
